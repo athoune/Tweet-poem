@@ -15,3 +15,5 @@ In Terminal, go into the folder::
 You can now use the command line tool::
 
   tweetpoem
+
+You are asked for tweeter login and password
