@@ -21,13 +21,13 @@ class StreamWatcherListener(tweepy.StreamListener):
 				continue
 			if word == 'the':
 				article = True
-			else:
-				if article:
-					article = False
-					what = word.translate(None,'"?!\'@#()[]{}\\').lower()
-					if self.what != None and self.what != what:
-						print "I don't like the %s, i'd rather the %s" % (self.what, what)
-					self.what = what
+				continue
+			if article:
+				article = False
+				what = word.translate(None,'"?!\'@#()[]{}\\').lower()
+				if self.what != None and self.what != what:
+					print "I don't like the %s, i'd rather the %s" % (self.what, what)
+				self.what = what
 
 	def on_error(self, status_code):
 		print 'An error has occured! Status code = %s' % status_code
@@ -40,9 +40,10 @@ def main():
 	# Prompt for login credentials and setup stream object
 	username = raw_input('Twitter username: ')
 	password = getpass('Twitter password: ')
-	stream = tweepy.Stream(username, password, StreamWatcherListener(), timeout=None)
-
-	stream.sample()
+	while True:
+		stream = tweepy.Stream(username, password, StreamWatcherListener(), timeout=None)
+		stream.sample()
+#		print "######### CRASH ############"
 if __name__ == '__main__':
 	try:
 		main()
