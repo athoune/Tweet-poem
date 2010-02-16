@@ -56,8 +56,8 @@ class StreamWatcherListener(tweepy.StreamListener):
 	def on_timeout(self):
 		print 'Snoozing Zzzzzz'
 
-def poem(username, password, async=False):
-	stream = tweepy.Stream(username, password, StreamWatcherListener(), timeout=None, retry_count=10)
+def poem(username, password, async=False, bag=ScreamingBag()):
+	stream = tweepy.Stream(username, password, StreamWatcherListener(bag), timeout=None, retry_count=10)
 	try:
 		stream.sample(async=async)
 		print "oups"
