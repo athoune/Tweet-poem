@@ -16,5 +16,5 @@ setup(name='Tweet-poem',
 	packages=['tweetpoem'],
 	package_dir={'': 'src/'},
 	scripts=['bin/tweetpoem'],
-	install_requires=["tweepy"],
+	install_requires=["tweepy", "tornado"],
 )
