@@ -1,0 +1,18 @@
+* {
+	font-family: "Apple Chancery", Georgia, "Times New Roman", Times, serif;
+}
+
+h1 {
+	font-size: 288px;
+	color: #e2e2e2;
+	line-height: 144px;
+	margin-bottom: 0;
+}
+
+ul {
+	margin-top: -100px;
+}
+li {
+	font-size: 16px;
+	list-style-type: none;
+}
