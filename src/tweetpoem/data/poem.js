@@ -1,16 +1,25 @@
 var last = null;
+var poems;
 
 var fetch = function() {
   $.ajax({
   url: (last == null) ? 'poem': 'poem?since=' + last,
+  dataType: 'json',
   success: function(data, textStatus, XMLHttpRequest){
-    console.log(data);
+    //console.log(data);
+    //console.log(data.poems);
     last = data.tick;
-    setTimeout('fetch()', 5000);
+    if(typeof data.poems != 'undefined') {
+      for(var i=0; i < data.poems.length; i++) {
+        poems.prepend($('<li>').text(data.poems[i]));
+      }
+    }
+    setTimeout('fetch()', 1000);
+    //fetch();
   },
   cache: false});
-}
+};
 $(function(){
-  console.log('plop');
+  poems = $('#poems');
   fetch();
 });
