@@ -7,7 +7,7 @@ use_setuptools()
 from setuptools import setup
 
 setup(name='Tweet-poem',
-	version='0.1',
+	version='0.2',
 	license='GPL-3',
 	description='Poems from tweeter',
 	author='Mathieu Lecarme',
@@ -16,5 +16,5 @@ setup(name='Tweet-poem',
 	packages=['tweetpoem'],
 	package_dir={'': 'src/'},
 	scripts=['bin/tweetpoem'],
-	install_requires=["tweepy", "tornado"],
+	install_requires=["tweepy"]#, "tornado"],
 )
