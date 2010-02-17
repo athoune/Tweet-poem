@@ -7,6 +7,7 @@ from tornado.escape import json_encode
 
 from datetime import timedelta
 from getpass import getpass
+import os
 
 import reader
 from stack import Stack
@@ -25,8 +26,8 @@ class StackBag(object):
 		self.stack.append(line)
 
 class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.write("Hello, poem")
+	def get(self):
+		self.render("index.html")
 
 class PoemHandler(tornado.web.RequestHandler):
 	def get(self):
@@ -41,10 +42,13 @@ class PoemHandler(tornado.web.RequestHandler):
 			data = list(stack.stack.since(tick))
 		self.write(json_encode({'tick': td2str(tick), 'data': data}))
 
+settings = {
+	"static_path": os.path.join(os.path.dirname(__file__), "data")
+}
 application = tornado.web.Application([
     (r"/", MainHandler),
 	(r"/poem", PoemHandler),
-])
+], **settings)
 
 def main(login, password):
 	global stack
