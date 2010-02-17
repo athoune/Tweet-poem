@@ -17,8 +17,8 @@ def clean(word):
 	output = cStringIO.StringIO()
 	for l in word:
 		if l not in u'"?!\'@#()[]{}\\':
-			output.write(l)
-	return output.getvalue()
+			output.write(unicode(l).encode('utf8'))
+	return unicode(output.getvalue(), 'utf8')
 
 class StreamWatcherListener(tweepy.StreamListener):
 
@@ -46,7 +46,7 @@ class StreamWatcherListener(tweepy.StreamListener):
 				article = False
 				what = clean(word).lower()
 				if self.what != None and self.what != what:
-					self.bag.append("I don't like the %s, i'd rather the %s" % (self.what, what))
+					self.bag.append(u"I don't like the " + self.what + u", i'd rather the " + what)
 				self.what = what
 
 	def on_error(self, status_code):
@@ -60,7 +60,6 @@ def poem(username, password, async=False, bag=ScreamingBag()):
 	stream = tweepy.Stream(username, password, StreamWatcherListener(bag), timeout=None, retry_count=10)
 	try:
 		stream.sample(async=async)
-		print "oups"
 	except KeyboardInterrupt:
 		print "stop it!"
 		stream.disconnect()
