@@ -24,7 +24,7 @@ class Stack(object):
 			else:
 				yield self.data[k]
 	def since(self, when):
-		now = time.clock()
+		now = self.tick()
 		for k in self.keys:
 			if now - k > self.maxage:
 				self.keys.remove(k)
