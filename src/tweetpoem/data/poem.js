@@ -1,5 +1,7 @@
 var last = null;
 var poems;
+var size = 0;
+var MAX = 25;
 
 var fetch = function() {
   $.ajax({
@@ -12,6 +14,11 @@ var fetch = function() {
     if(typeof data.poems != 'undefined') {
       for(var i=0; i < data.poems.length; i++) {
         poems.prepend($('<li>').text(data.poems[i]));
+        if(size > MAX) {
+          poems.children().last().remove();
+        } else {
+          size++;
+        }
       }
     }
     setTimeout('fetch()', 1000);
