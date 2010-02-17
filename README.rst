@@ -12,6 +12,10 @@ In Terminal, go into the folder::
   python setup.py build
   sudo python setup.py install
 
+If you are using python 2.5 (default in Unbuntu LTS and Leopard)::
+
+  sudo python ez_setup simplejson
+
 Usage
 =====
 
@@ -21,7 +25,12 @@ You can now use the command line tool::
 
 You are asked for tweeter login and password
 
-Bugs
-====
+Server
+======
 
-Strange bugs with python 2.6.1, default version on Snow Leopard and Ubuntu LTS. Ouch!
+You can use it as a web server. You need to install http://www.tornadoweb.org/
+
+Start it::
+
+  cd src/tweetpoem
+  python server.py
