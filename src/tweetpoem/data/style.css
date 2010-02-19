@@ -35,7 +35,6 @@ h1 {
   color: gray;
   font: 12px/14px georgia, "Times New Roman", Times, serif;
   text-align: justify;
-
 }
 
 #infos a, #infos a:hover {
@@ -47,4 +46,15 @@ h1 {
   font-size: 32px;
   float: left;
   font-weight: bold;
+}
+
+#best {
+	position: absolute;
+	top: 600px;
+	left: 320px;
+}
+
+#best li {
+  font: 12px/14px georgia, "Times New Roman", Times, serif;
+	list-style-type: none;
 }

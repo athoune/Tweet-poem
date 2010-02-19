@@ -3,6 +3,7 @@ var poems;
 var size = 0;
 var MAX = 36;
 var stack = [];
+var best;
 
 var position;
 var Circle = function(width, height) {
@@ -39,7 +40,7 @@ Column.prototype = {
   next: function() {
     this.line ++;
     if(this.line > MAX / 3) {
-      this.line = 0
+      this.line = 0;
       this.col++;
     }
     if(this.col >= 3) {
@@ -76,8 +77,11 @@ var display = function() {
       .css('position', 'absolute')
       .css('left', position.x())
       .css('top' , position.y())
+      .click(function() {
+        best.append($('<li>').text(poem));
+      })
       .animate({
-      opacity:0,
+      opacity:0
     }, 3000, function() {
         $(this).remove();
       }));
@@ -93,6 +97,7 @@ var display = function() {
 
 $(function(){
   poems = $('#poems');
+  best = $('#best');
   var body = $('body');
   position = new Column(body.width(), body.height());
   fetch();
