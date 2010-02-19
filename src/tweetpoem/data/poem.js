@@ -1,7 +1,7 @@
 var last = null;
 var poems;
 var size = 0;
-var MAX = 24;
+var MAX = 36;
 var stack = [];
 
 var position;
@@ -71,16 +71,16 @@ var fetch = function() {
 var display = function() {
   if(stack.length > 0) {
     var poem = stack.pop();
-    poems.prepend(
-      $('<div>')
+    poems.prepend($('<div>')
       .text(poem)
       .css('position', 'absolute')
       .css('left', position.x())
       .css('top' , position.y())
-/*      .fadeOut(100, function() {
+      .animate({
+      opacity:0,
+    }, 3000, function() {
         $(this).remove();
-      })*/
-    );
+      }));
     position.next();
     if(size > MAX) {
       poems.children().last().remove();

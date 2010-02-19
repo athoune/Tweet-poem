@@ -1,18 +1,50 @@
 * {
-	font-family: "Apple Chancery", Georgia, "Times New Roman", Times, serif;
+  font-family: Zapfino, brockscript, "Apple Chancery", Georgia, "Times New Roman", Times, serif;
 }
 
 h1 {
-	font-size: 288px;
-	color: #e2e2e2;
-	line-height: 144px;
-	margin-bottom: 0;
+  font-size: 288px;
+  color: #e2e2e2;
+  line-height: 200px;
+  margin-bottom: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
-ul {
-	margin-top: -100px;
+#poems {
+  margin-top: -100px;
+  font-size: 16px;
+  list-style-type: none;
+  height: 430px;
 }
-li {
-	font-size: 16px;
-	list-style-type: none;
+#poems div {
+  font-family: georgia, "Times New Roman", Times, serif;
+}
+
+#infos {
+  width: 300px;
+  border: thin solid #e9ebeb;
+  padding: 5px;
+	position: absolute;
+	top: 600px;
+	left: 10px;
+}
+
+#infos p {
+  color: gray;
+  font: 12px/14px georgia, "Times New Roman", Times, serif;
+  text-align: justify;
+
+}
+
+#infos a, #infos a:hover {
+  color: #b0acfc;
+	text-decoration: none;
+}
+
+#infos::first-letter {
+  font-size: 32px;
+  float: left;
+  font-weight: bold;
 }
