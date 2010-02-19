@@ -42,10 +42,9 @@ h1 {
 	text-decoration: none;
 }
 
-#infos::first-letter {
-  font-size: 32px;
+#infos p:first-child:first-letter {
   float: left;
-  font-weight: bold;
+	font: bold 32px/28px georgia, "Times New Roman", Times, serif;
 }
 
 #best {
