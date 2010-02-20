@@ -34,7 +34,7 @@ class PoemHandler(tornado.web.RequestHandler):
 	@tornado.web.asynchronous
 	def get(self):
 		global stack
-		#self.set_header("Content-Type", "text/plain")
+		self.set_header("Content-Type", "application/json")
 		since = self.get_argument("since", None)
 		if since == None:
 			tick = stack.stack.tick()
@@ -52,7 +52,8 @@ class PoemHandler(tornado.web.RequestHandler):
 		self.finish()
 
 settings = {
-	"static_path": os.path.join(os.path.dirname(__file__), "data")
+	"static_path": os.path.join(os.path.dirname(__file__), "data"),
+	"gzip": True
 }
 application = tornado.web.Application([
     (r"/", MainHandler),
