@@ -6,6 +6,7 @@ import tornado.web
 from tornado.escape import json_encode
 
 import os
+import time
 import sys
 
 from redistack import RedisTack
@@ -22,23 +23,13 @@ class PoemHandler(tornado.web.RequestHandler):
 		since = self.get_argument("since", None)
 		while True:
 			if since == None:
-				data = list(self.stack)
+				tick, data = self.stack.all()
 			else:
-				data = list(self.stack.since(int(since)))
+				tick, data = self.stack.since(int(since))
 			if data != []:
 				break
 			time.sleep(1)
-		self.write('{"poems":[')
-		size = len(data)
-		cpt = 0
-		tick = None
-		for a in data:
-			cpt += 1
-			tick, poem = a.split(':', 1)
-			self.write(json_encode(poem))
-			if cpt < size:
-				self.write(',')
-		self.write('],"tick":%s}' %tick)
+		self.write(json_encode({'poems' : data, 'tick': tick}))
 		self.finish()
 
 settings = {
