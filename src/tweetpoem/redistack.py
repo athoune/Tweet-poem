@@ -15,26 +15,26 @@ class RedisTack(object):
 			self.redis.flushdb()
 	def append(self, data):
 		#[TODO] add a transaction
-		idx = int(self.redis.incr(self.IDX))
+		idx = self.redis.incr(self.IDX)
 		pipe = self.redis.pipeline()
-		pipe.rpush(self.DATA, '%i:' % idx + data).ltrim(self.DATA, -self.max, -1)
+		pipe.set(idx,  data).expire(idx, 30)
 		pipe.execute()
-	def __iter__(self):
-		return iter(self.redis.lrange(self.DATA, 0, -1))
-	def idx(self):
-		return int(self.redis[self.IDX])
+	def all(self):
+		idx = int(self.redis.get(self.IDX))
+		return self.since(max(1, idx - self.max))
 	def since(self, when):
-		for a in  self.redis.lrange(self.DATA, 0, -1):
-			idx, data = a.split(':', 1)
-			if int(idx) > when:
-				yield a
+		idx = int(self.redis.get(self.IDX))
+		return idx, self.redis.mget([str(a) for a in range(max(when, idx -self.max +1 ), idx+1)])
 if __name__ == '__main__':
 	stack = RedisTack(purge=True, max=20)
-	for a in range(20):
+	for a in range(1, 21):
 		stack.append(str(a))
-	print list(stack)
-	assert ['%i:%i' %(a+1,a) for a in range(20)] == list(stack)
-	print list(stack.since(15))
-	print stack.idx()
-	stack.append("20")
-	assert ['%i:%i' %(a+1,a) for a in range(1, 21)] == list(stack)
+	print stack.all()
+	#assert [str(a) for a in range(20)] == list(stack)
+	print "since 15", list(stack.since(15))
+	stack.append("21")
+	idx, values =  stack.all()
+	assert 20 == len(values)
+	print values
+	assert [str(a) for a in range(2, 22)] == values
+
