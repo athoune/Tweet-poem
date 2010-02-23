@@ -82,7 +82,7 @@ var display = function() {
       })
       .animate({
       opacity:0
-    }, 3000, function() {
+    }, 5000, function() {
         $(this).remove();
       }));
     position.next();
