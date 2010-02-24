@@ -24,7 +24,7 @@ class RedisTack(object):
 		return self.since(max(1, idx - self.max))
 	def since(self, when):
 		idx = int(self.redis.get(self.IDX))
-		return idx, self.redis.mget([str(a) for a in range(max(when, idx -self.max +1 ), idx+1)])
+		return idx, self.redis.mget([str(a) for a in range(max(when+1, idx -self.max +1 ), idx+1)])
 if __name__ == '__main__':
 	stack = RedisTack(purge=True, max=20)
 	for a in range(1, 21):
