@@ -25,12 +25,23 @@ You can now use the command line tool::
 
 You are asked for tweeter login and password
 
+Test
+====
+
+http://poem.garambrogne.net
+
 Server
 ======
 
-You can use it as a web server. You need to install http://www.tornadoweb.org/
+You can use it as a web server. The server use Tornado (you need to install it http://www.tornadoweb.org/) and Redis.
+Launch one web server per core, and use nginx or lighttpd for loadbalance.
 
 Start it::
 
   cd src/tweetpoem
-  python server.py
+  python server.py 8888
+
+In an other terminal::
+
+  cd src/tweetpoem
+  python pusher.py
