@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 
-from datetime import datetime, timedelta
-
 from redis import Redis
 
 class RedisTack(object):
 	"One writer, n readers"
-	def __init__(self, host= 'localhost', port=6379, db=0, max=30, purge=False):
+	def __init__(self, host= 'localhost', port=6379, db=0, maxi=30, purge=False, debug=False):
 		self.redis = Redis(host=host, port=port, db=db)
-		self.max = max
+		self.max = maxi
 		self.DATA = 'data'
 		self.IDX = 'idx'
+		self.debug = debug
 		if purge:
 			self.redis.flushdb()
 	def append(self, data):
+		if self.debug:
+			print data
 		#[TODO] add a transaction
 		idx = self.redis.incr(self.IDX)
 		pipe = self.redis.pipeline()
@@ -26,7 +27,7 @@ class RedisTack(object):
 		idx = int(self.redis.get(self.IDX))
 		return idx, self.redis.mget([str(a) for a in range(max(when+1, idx -self.max +1 ), idx+1)])
 if __name__ == '__main__':
-	stack = RedisTack(purge=True, max=20)
+	stack = RedisTack(purge=True, maxi=20)
 	for a in range(1, 21):
 		stack.append(str(a))
 	print stack.all()
