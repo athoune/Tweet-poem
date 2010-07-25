@@ -3,15 +3,13 @@
 from getpass import getpass
 
 from redistack import RedisTack
-import reader
-
+from reader import poem
 
 
 def main(login, password):
-	stack = RedisTack()
-	reader.poem(login, password, async=False, bag=stack)
-	
+	poem(login, password, bag=RedisTack(debug=True))
+
 if __name__ == "__main__":
-	username = raw_input('Twitter username: ')
-	password = getpass('Twitter password: ')
-	main(username, password)
+	name = raw_input('Twitter username: ')
+	passwd = getpass('Twitter password: ')
+	main(name, passwd)
