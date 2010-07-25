@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import time
 from getpass import getpass
 from textwrap import TextWrapper
 import re
